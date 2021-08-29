@@ -17,5 +17,15 @@ namespace OrientExpress.Extensions {
                     Expression.Invoke(first, a)),
                 a);
         }
+
+        public static Expression<Func<A, C>> Compose<A, B, C>(this Expression<Func<B, C>> second, Expression<Func<A, B>> first) {
+            var a = Expression.Parameter(typeof(A), "a");
+
+            return Expression.Lambda<Func<A, C>>(
+                Expression.Invoke(
+                    second, 
+                    Expression.Invoke(first, a)),
+                a);
+        }
     }
 }
